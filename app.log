@@ -1,0 +1,5 @@
+DEBUG - Logging nivel debug
+INFO - Logging nivel info
+WARNING - Logging nivel warning
+ERROR - Logging nivel error
+CRITICAL - Logging nivel critico
