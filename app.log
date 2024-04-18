@@ -3,3 +3,30 @@ INFO - Logging nivel info
 WARNING - Logging nivel warning
 ERROR - Logging nivel error
 CRITICAL - Logging nivel critico
+INFO - invalid literal for int() with base 10: 'feij�o'
+INFO - tacio.santos@mutua.com.br entrou em sua conta banc�ria
+INFO - invalid literal for int() with base 10: 'ij'
+INFO - tacio entrou em sua conta banc�ria
+INFO - invalid literal for int() with base 10: 'go'
+INFO - invalid literal for int() with base 10: 'go'
+INFO - tacio entrou em sua conta banc�ria
+INFO - invalid literal for int() with base 10: 'Gogogogogog'
+INFO - invalid literal for int() with base 10: 'tacio.fagundes2@gmail.com'
+INFO - tacio.fagundes2@gmail.com entrou em sua conta banc�ria
+INFO - tacio.fagundes2@gmail.com errou a senha
+INFO - tacio.fagundes2@gmail.com entrou em sua conta banc�ria 2024-04-18 17:42:07.367357
+INFO - t entrou em sua conta banc�ria 2024-04-18 17:43:23
+INFO - invalid literal for int() with base 10: 'peixe'
+INFO - tacio entrou em sua conta bancária 2024-04-18 17:49:38
+INFO - arrroz entrou em sua conta bancária 2024-04-18 17:50:16
+INFO - tac errou a senha 2024-04-18 17:51:26
+INFO - invalid literal for int() with base 10: 'peixe'
+INFO - tac entrou em sua conta bancária 2024-04-18 17:51:26
+INFO - invalid literal for int() with base 10: 'ruirui' às 2024-04-18 17:54:07
+INFO - ruirui errou a senha 2024-04-18 17:54:07
+INFO - ruirui entrou em sua conta bancária 2024-04-18 17:54:07
+INFO - tacio.agora errou a senha 2024-04-18 17:55:12
+INFO - Não digitou números inteiros às 2024-04-18 17:55:12
+INFO - Não digitou números inteiros às 2024-04-18 17:55:12
+INFO - tacio.agora errou a senha 2024-04-18 17:55:12
+INFO - tacio.agora entrou em sua conta bancária 2024-04-18 17:55:12
