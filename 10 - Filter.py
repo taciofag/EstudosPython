@@ -12,7 +12,3 @@ def pessoas_aprovadas(notas):
 aprovados = list(map(pessoas_aprovadas, notas))
 
 print(*aprovados)
-
-pinturas = [
-    [Printur]
-]
