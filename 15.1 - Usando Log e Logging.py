@@ -21,4 +21,4 @@ while True:
             logging.info(f'{email} errou a senha {agora.strftime("%Y-%m-%d %H:%M:%S")}')
     except ValueError as erro:
         print(f'Digite apenas números')
-        logging.info(f'Não digitou números inteiros às {agora.strftime("%Y-%m-%d %H:%M:%S")}')
+        logging.info(f'Não digitou números inteiros às {agora.strftime("%Y-%m-%d %H:%M:%S")} {(erro)}')
