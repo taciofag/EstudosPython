@@ -16,7 +16,7 @@ class Computador:
         self.marca = marca
         self.memoria_ram = memoria_ram
         self.placa = placa_de_video
-    def ligar(self)
+    #def ligar(self)
 
 
 computador1 = Computador('Asus', '16', 'NVIDIA')
