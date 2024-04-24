@@ -13,5 +13,5 @@ class Computador:
     def desligar(self):
         print('Estou desligando')
 
-    def exibir_dados_do_computador(selfi):
-        print(f'Computador da marca {selfi.marca}')
+    def exibir_dados_do_computador(self):
+        print(f'Computador da marca {self.marca}')
