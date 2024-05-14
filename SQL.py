@@ -5,6 +5,7 @@ DATABASE = "dm_ciap"
 USERNAME = "bi.admin"
 PASSWORD = "SSB1-Adm1n"
 DRIVER = 'ODBC Driver 17 for SQL Server'
+SQL_QUERY = 'SELECT * from PBI_Profile'
 
 dados_conexao = (
     f'DRIVER={DRIVER};'
@@ -19,9 +20,6 @@ dados_conexao = (
 conn = pyodbc.connect(dados_conexao)
 cursor = conn.cursor()
 
-
-
-SQL_QUERY = 'SELECT * from PBI_Profile'
 query = cursor.execute(SQL_QUERY)
 
 records = cursor.fetchall()
