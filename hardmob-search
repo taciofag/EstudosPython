@@ -1,0 +1,109 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import os
+from urllib.parse import urlparse, urlunparse
+
+# Função para normalizar o URL removendo parâmetros de query
+def normalize_url(url):
+    parsed_url = urlparse(url)
+    normalized_url = urlunparse(parsed_url._replace(query=''))
+    return normalized_url
+
+# Função para enviar e-mail
+def send_email(links):
+    from_address = 'tacio.fagundes2@gmail.com'
+    to_address = 'tacio.fagundes2@gmail.com'
+    subject = 'Links Encontrados'
+    body = f'Os seguintes links foram encontrados:\n\n' + '\n'.join(links)
+    
+    # Configurar o servidor de e-mail
+    msg = MIMEMultipart()
+    msg['From'] = from_address
+    msg['To'] = to_address
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(from_address, 'lwor toxj gmjx vhnv')  # Insira sua senha
+        server.sendmail(from_address, to_address, msg.as_string())
+        server.quit()
+        print("E-mail enviado com sucesso!")
+    except Exception as e:
+        print(f"Falha ao enviar e-mail: {e}")
+
+# Função para ler links já enviados
+def read_sent_links(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r', encoding='utf-8') as file:
+            return set(file.read().splitlines())
+    return set()
+
+# Função para salvar novos links enviados
+def write_sent_links(filename, links):
+    with open(filename, 'a', encoding='utf-8') as file:
+        for link in links:
+            file.write(link + '\n')
+
+# Configurar o driver do Chrome em modo headless
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
+
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+# Navegar para a página desejada
+driver.get('https://www.hardmob.com.br/forums/407-Promocoes')
+
+# Esperar que os elementos desejados estejam presentes na página
+try:
+    # Espera até que todos os elementos com a classe 'title' estejam presentes
+    elements = WebDriverWait(driver, 20).until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.title'))
+    )
+    
+    # Lista de nomes a serem pesquisados (case-insensitive)
+    search_names = ['TV', 'Televisao', 'Televisão']  # Pode ser uma lista com um único termo ou vários
+    search_names_lower = [name.lower() for name in search_names]
+
+    # Lista para armazenar os links encontrados
+    found_links = []
+
+    # Ler links já enviados
+    sent_links = read_sent_links('sent_links.txt')
+
+    # Iterar sobre os elementos e filtrar pelo nome
+    for element in elements:
+        title_text = element.text
+        href_value = element.get_attribute('href')
+        
+        # Normalizar o URL removendo parâmetros de query
+        normalized_link = normalize_url(href_value)
+
+        # Verificar se o título contém qualquer um dos nomes de pesquisa (case-insensitive)
+        if any(name in title_text.lower() for name in search_names_lower):
+            # Adicionar links novos que ainda não foram enviados
+            if normalized_link not in sent_links:
+                found_links.append(normalized_link)
+    
+    # Enviar e-mail se pelo menos um link for encontrado
+    if found_links:
+        send_email(found_links)
+        # Atualizar o arquivo com os novos links enviados
+        write_sent_links('sent_links.txt', found_links)
+finally:
+    # Fechar o navegador
+    driver.quit()
+
+print("Processo concluído.")
